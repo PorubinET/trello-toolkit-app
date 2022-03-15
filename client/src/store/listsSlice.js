@@ -26,35 +26,50 @@ export const listsSlice = createSlice({
 
         lists: [
             {
-                name: "Jack",
-                email: "user@mail.ru",
                 title: "IN PROGRESS",
                 listId: 0,
                 cards: [
                     {
-                        userId: 1,
+                        usersCard: [
+                            0,
+                            1,
+                            2
+                        ],
+                        userId: 2,
                         id: 3724585,
                         text: "class ",
                         description: "description 1",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 2,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 0,
                         id: 8757487,
                         text: "created static 2",
                         description: "description 2",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 0,
+                        usersCard: [
+                            0,
+                            
+                        ],
+                        userId: 1,
                         id: 8743098,
                         text: "created static 3",
                         description: "description 3",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 1,
-                        id: 8787779,
+                        usersCard: [
+                            0,
+                            2
+                        ],
+                        userId: 0,
+                        id: 8787779, 
                         text: "created static 4",
                         description: "description 4",
                         time: "10.03.2022 21:36"
@@ -62,41 +77,59 @@ export const listsSlice = createSlice({
                 ]
             },
             {
-                name: "Jack",
-                email: "user@mail.ru",
                 title: "TO DO",
                 listId: 1,
                 cards: [
                     {
-                        userId: 2,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 0,
                         id: 5465765,
                         text: "created static 1",
                         description: "description 1",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 1,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 0,
                         id: 21334344,
                         text: "created static 2",
                         description: "description 2",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 0,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 2,
                         id: 34656723,
                         text: "created static 3",
                         description: "description 3",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 1,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 0,
                         id: 56324235,
                         text: "created static 4",
                         description: "description 4",
                         time: "10.03.2022 21:36"
                     },
                     {
-                        userId: 2,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 1,
                         id: 2436653,
                         text: "created static 5",
                         description: "description 5",
@@ -105,19 +138,25 @@ export const listsSlice = createSlice({
                 ]
             },
             {
-                name: "Jack",
-                email: "user@mail.ru",
                 title: "TO DO2",
                 listId: 2,
                 cards: [
                     {
-                        userId: 1,
+                        usersCard: [
+                            0,
+                            1
+                        ],
+                        userId: 0,
                         id: 7654325,
                         text: "created static 6",
                         description: "description 6",
                         time: "10.03.2022 21:36"
                     },
                     {
+                        usersCard: [
+                            0,
+                            1
+                        ],
                         userId: 2,
                         id: 4665734,
                         text: "created static 7",
@@ -149,8 +188,7 @@ export const listsSlice = createSlice({
             if (move === true) {
                 const indexCardStart = state.lists[action.payload.indexStart].cards.findIndex(card => card.id === action.payload.id)
                 const moveCard = state.lists[action.payload.indexStart].cards.splice(indexCardStart, 1)
-                const indexCardEnd = state.lists[action.payload.indexEnd]
-                // action.payload.indexStart === action.payload.indexEnd ? console.log('выберете другой лист') : indexCardEnd.cards.push(...moveCard)  
+                const indexCardEnd = state.lists[action.payload.indexEnd]  
                 indexCardEnd.cards.push(...moveCard)
             }
 

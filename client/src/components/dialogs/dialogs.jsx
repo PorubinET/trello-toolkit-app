@@ -22,7 +22,7 @@ import Card from '@mui/material/Card';
 
 import "./dialogs.scss";
 
-export default function FormDialog({ text, id, desc, time, indexList, userId }) {
+export default function FormDialog({ text, id, desc, time, indexList, userId, usersCard }) {
 
   let [move, setMove] = useState(false)
   let [openCard, setOpen] = useState(false);
@@ -34,14 +34,22 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
   const lists = useSelector(state => state.lists.lists)
   const users = useSelector(state => state.lists.users)
 
+  // const uCard = lists.map(list => list.cards.map(card => card.usersCard), "<<<<")
+
+  // console.log(uCard)
+
+  // console.log(userId, "userId")
+  console.log(usersCard, "usersCard")
+  // const usersC = users.find()
+
   const currentUser = users.find(user => user.userId === userId)
 
   const changeText = (e) => { setTextCard(textCard = e.target.value) }
   const changeDesc = (e) => { setDescCard(textCard = e.target.value) }
 
-  const handleClickOpen = () => {setOpen(openCard === true ? false : true)};
-  const clickProfOpen = () => {setProfOpen(profOpen === true ? false : true)}
-  const dragCard = () => {setMove(move === true ? false : true)}
+  const handleClickOpen = () => { setOpen(openCard === true ? false : true) }
+  const clickProfOpen = () => { setProfOpen(profOpen === true ? false : true) }
+  const dragCard = () => { setMove(move === true ? false : true) }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -57,7 +65,7 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
   }
 
   const moveCard = (indexEnd) => {
-    if(indexList === indexEnd) {alert("выберите другой лист")}
+    if (indexList === indexEnd) { alert("выберите другой лист") }
     dispatch(sort({ indexStart: indexList, id, indexEnd, move }))
   }
 
@@ -82,7 +90,6 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
 
       <Dialog open={openCard} onClose={handleClickOpen}>
         <DialogTitle style={{ display: "flex", justifyContent: "space-between" }}>
-
           <Dialog open={move} onClose={dragCard}>
             {lists.map((list, index) =>
               <Button
@@ -107,23 +114,56 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
             onChange={changeText}
             style={{ width: "30%" }}
           />
+
           <Grid>
 
             <CardHeader
               action={
+                // <IconButton aria-label="settings" onClick={clickProfOpen}>
+                //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                //     {currentUser.name[0]}
+                //   </Avatar>
+                // </IconButton>
                 <IconButton aria-label="settings" onClick={clickProfOpen}>
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    {currentUser.name[0]}
+                  <Avatar sx={{ bgcolor: red[10] }} aria-label="recipe">
+                    +
                   </Avatar>
                 </IconButton>
               }
-              title={currentUser.name}
+              // title={currentUser.name}
+              title="Members"
               style={{ textAlign: "right" }}
             />
-
           </Grid>
+
           <Dialog open={profOpen} onClose={clickProfOpen}>
+
             <Card sx={{ maxWidth: 345 }}>
+              <CardContent style={{ width: "320px", display: "flex", justifyContent: "space-between" }}>
+                <Grid style={{ textAlign: "left" }}>
+                  <Typography variant="body2" color="text.secondary">
+                    <span>{currentUser.name}</span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <span>{currentUser.email}</span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <span>8989-888-88-88</span>
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Avatar sx={{ bgcolor: red[500], width: "40px", height: "40px" }} aria-label="recipe">
+                    {currentUser.name[0]}
+                  </Avatar>
+                </Grid>
+              </CardContent>
+              <CardActions style={{ justifyContent: "space-between" }}>
+                <Button size="small" onClick={clickProfOpen}>Close</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+
+            {/* <Card sx={{ maxWidth: 345 }}>
               <CardContent style={{ width: "320px", display: "flex", justifyContent: "space-between" }}>
                 <Grid style={{ textAlign: "left" }}>
                   <Typography variant="body2" color="text.secondary">
@@ -146,7 +186,8 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
                 <Button size="small" onClick={clickProfOpen}>Close</Button>
                 <Button size="small">Learn More</Button>
               </CardActions>
-            </Card>
+            </Card> */}
+
           </Dialog>
         </DialogTitle>
 

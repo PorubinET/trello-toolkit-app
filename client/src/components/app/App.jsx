@@ -44,9 +44,8 @@ function App() {
         {provided => (
           <ListContainer {...provided.droppableProps} ref={provided.innerRef}>
             <Sidebar />
-            {lists.map((list, index) =>
-              {console.log(list.listId, "listID")
-              return<TrelloList
+            {lists.map((list, index) =>  
+              <TrelloList
                 _id={list.listId}
                 key={list.listId}
                 title={list.title}
@@ -55,7 +54,7 @@ function App() {
                 email={list.email}
                 index={index}
               />
-            })}
+            )}
             {provided.placeholder}
             <TrelloActionButton list />
           </ListContainer>
