@@ -17,7 +17,6 @@ function TrelloActionButton(props) {
 
     
     const {list, _id } = props
-    // console.log(list, "<<<")
     const dispatch = useDispatch();
 
     const buttonTextOpacity = list ? 1 : 0.5;
@@ -72,7 +71,7 @@ function TrelloActionButton(props) {
             alert("пустое поле")   
         }
         else {
-            dispatch(addCard({listId: _id, _id, text, time, desc: ""}))
+            dispatch(addCard({_id, text, time, desc: ""}))
             setText(text = "")
         }
     }

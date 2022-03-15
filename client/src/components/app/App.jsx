@@ -18,8 +18,9 @@ const ListContainer = styled.div`
 
 function App() {
   const dispatch = useDispatch();
-
+  
   const lists = useSelector(state => state.lists.lists)
+  console.log(lists, "lists<<<<<")
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result
 
@@ -44,7 +45,8 @@ function App() {
           <ListContainer {...provided.droppableProps} ref={provided.innerRef}>
             <Sidebar />
             {lists.map((list, index) =>
-              <TrelloList
+              {console.log(list.listId, "listID")
+              return<TrelloList
                 _id={list.listId}
                 key={list.listId}
                 title={list.title}
@@ -53,7 +55,7 @@ function App() {
                 email={list.email}
                 index={index}
               />
-            )}
+            })}
             {provided.placeholder}
             <TrelloActionButton list />
           </ListContainer>

@@ -23,6 +23,7 @@ const ListContainer = styled.div`
 
 const TrelloList = ({ title, cards, _id, index, position}) => {
 
+
   let [titleText, setTitle] = useState(title);
   const dispatch = useDispatch();
 

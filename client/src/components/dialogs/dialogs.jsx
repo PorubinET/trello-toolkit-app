@@ -33,6 +33,7 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
   const dispatch = useDispatch();
   const lists = useSelector(state => state.lists.lists)
   const users = useSelector(state => state.lists.users)
+
   const currentUser = users.find(user => user.userId === userId)
 
   const changeText = (e) => { setTextCard(textCard = e.target.value) }

@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 let listId = 3;
-let _id = 10;
+
 
 export const listsSlice = createSlice({
     name: 'lists',
@@ -55,7 +54,7 @@ export const listsSlice = createSlice({
                     },
                     {
                         userId: 1,
-                        id: 87877798,
+                        id: 8787779,
                         text: "created static 4",
                         description: "description 4",
                         time: "10.03.2022 21:36"
@@ -143,7 +142,6 @@ export const listsSlice = createSlice({
             } = action.payload;
 
             if (type === "list") {
-                console.log("type === list")
                 const list = state.lists.splice(+droppableIndexStart, 1);
                 state.lists.splice(+droppableIndexEnd, 0, ...list)
             }
@@ -152,20 +150,16 @@ export const listsSlice = createSlice({
                 const indexCardStart = state.lists[action.payload.indexStart].cards.findIndex(card => card.id === action.payload.id)
                 const moveCard = state.lists[action.payload.indexStart].cards.splice(indexCardStart, 1)
                 const indexCardEnd = state.lists[action.payload.indexEnd]
-                indexCardEnd.cards.splice(0, 0, ...moveCard)
+                indexCardEnd.cards.push(...moveCard)
             }
 
             if (droppableIdStart !== "all-lists" && droppableIdStart === droppableIdEnd && move !== true) {
-                console.log("droppableIdStart !== all-lists")
-                console.log(action.payload)
                 const list = state.lists.find((list) => +droppableIdStart === list.listId)
                 const card = list.cards.splice(+droppableIndexStart, 1)
                 list.cards.splice(+droppableIndexEnd, 0, ...card)
             }
 
             if (droppableIdStart !== droppableIdEnd) {
-                console.log("droppableIdStart !== all-lists")
-                console.log(action.payload)
                 const listStart = state.lists.find((list) => +droppableIdStart === list.listId)
                 const card = listStart.cards.splice(+droppableIndexStart, 1)
                 const listEnd = state.lists.find((list) => +droppableIdEnd === list.listId)
@@ -175,7 +169,6 @@ export const listsSlice = createSlice({
 
         addList(state, action) {
             const newList = {
-                userId: 0,
                 title: action.payload.text,
                 listId: listId,
                 cards: []
@@ -187,20 +180,12 @@ export const listsSlice = createSlice({
         addCard(state, action) {
             const newCard = {
                 userId: 0,
-                listId: action.payload.listId,
-                id: `card-${_id}`,
+                id: Date.now(),
                 text: action.payload.text,
                 description: action.payload.desc,
                 time: action.payload.time
             }
-            _id += 1
-            const newState = state.lists.map(list => {
-                if (list.listId === action.payload._id) {
-                    return { ...list, cards: [...list.cards, newCard] }
-                }
-                else return list
-            })
-            return { lists: newState }
+            return {...state, lists: state.lists.map(list => list.listId === action.payload._id ? { ...list, cards: [...list.cards, newCard]} : list)}
         },
 
         changeCardText(state, action) {
@@ -208,7 +193,6 @@ export const listsSlice = createSlice({
                 ...card,
                 text: card.id === action.payload.id ? action.payload.text : card.text
             }))
-            
         },
 
         changeCardDesc(state, action) {
