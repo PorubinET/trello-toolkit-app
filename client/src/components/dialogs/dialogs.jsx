@@ -20,7 +20,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 
-import "./dialogs.scss"
+import "./dialogs.scss";
 
 export default function FormDialog({ text, id, desc, time, indexList, userId }) {
 
@@ -39,20 +39,12 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
   const changeText = (e) => { setTextCard(textCard = e.target.value) }
   const changeDesc = (e) => { setDescCard(textCard = e.target.value) }
 
-  const handleClickOpen = () => {
-    setOpen(openCard === true ? false : true);
-  };
-
-  const clickProfOpen = () => {
-    setProfOpen(profOpen === true ? false : true)
-  }
-
-  const dragCard = () => {
-    setMove(move === true ? false : true)
-  }
+  const handleClickOpen = () => {setOpen(openCard === true ? false : true)};
+  const clickProfOpen = () => {setProfOpen(profOpen === true ? false : true)}
+  const dragCard = () => {setMove(move === true ? false : true)}
 
   const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       e.preventDefault()
       setDate()
     }
@@ -65,6 +57,7 @@ export default function FormDialog({ text, id, desc, time, indexList, userId }) 
   }
 
   const moveCard = (indexEnd) => {
+    if(indexList === indexEnd) {alert("выберите другой лист")}
     dispatch(sort({ indexStart: indexList, id, indexEnd, move }))
   }
 

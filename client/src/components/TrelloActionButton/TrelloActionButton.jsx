@@ -11,15 +11,14 @@ import "./TrelloActionButton.scss"
 
 
 function TrelloActionButton(props) {
-    const time = moment().format("DD.MM.YYYY HH:mm");
     let [formOpen, setForm] = useState(true)
     let [text, setText] = useState("")
 
-    
-    const {list, _id } = props
+    const time = moment().format("DD.MM.YYYY HH:mm");
     const dispatch = useDispatch();
-
+    const {list, _id } = props
     const buttonTextOpacity = list ? 1 : 0.5;
+
     const buttonText = list
         ? "Add a list"
         : "Add a card";
@@ -42,12 +41,7 @@ function TrelloActionButton(props) {
 
     const openForm = (e) => {
         e.preventDefault();
-        setForm(false)
-    }
-
-    const closeForm = (e) => {
-        e.preventDefault();
-        setForm(true)
+        setForm(formOpen === false ? true : false)
     }
 
     const handleInputChange = (e) => {
@@ -73,6 +67,13 @@ function TrelloActionButton(props) {
         else {
             dispatch(addCard({_id, text, time, desc: ""}))
             setText(text = "")
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          createCard(e)
         }
     }
 
@@ -120,8 +121,9 @@ function TrelloActionButton(props) {
                 }}>
                     <TextareaAutosize
                         placeholder={placeholder}
-                        onBlur={closeForm}
+                        onBlur={openForm}
                         value={text}
+                        onKeyDown={handleKeyDown}
                         onChange={handleInputChange}
                         autoFocus
                         style={{
@@ -148,7 +150,7 @@ function TrelloActionButton(props) {
                         cursor: "pointer",
                     }}>
                         <CancelIcon 
-                            onClick={closeForm}
+                            onClick={openForm}
                         />
                     </Icon>
                 </div>

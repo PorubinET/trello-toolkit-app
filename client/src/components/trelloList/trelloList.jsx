@@ -21,7 +21,7 @@ const ListContainer = styled.div`
     margin-right: 8px;
   `;
 
-const TrelloList = ({ title, cards, _id, index, position}) => {
+const TrelloList = ({ title, cards, _id, index, position }) => {
 
 
   let [titleText, setTitle] = useState(title);
@@ -32,16 +32,10 @@ const TrelloList = ({ title, cards, _id, index, position}) => {
   }
 
   const handleKeyDown = (e) => {
-    console.log('ok')
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       e.preventDefault()
-      e.currentTarget.setAttribute("readonly", "true")
-      dispatch(changeListTitle({ _id, titleText }))
+      dispatch(changeListTitle({_id, titleText}))
     }
-  }
-
-  const removeAttribute = (e) => {
-    e.currentTarget.removeAttribute("readonly", "true")
   }
 
   return (
@@ -55,19 +49,19 @@ const TrelloList = ({ title, cards, _id, index, position}) => {
           <Droppable droppableId={String(_id)}>
             {provided => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                <Grid style={{ display: "flex" }}>
-                  <TextField
+                <Grid style={{ display: "flex" , justifyContent: "space-between"}}>
+                  <TextField          
                     margin="dense"
                     label="Rename"
                     variant="standard"
                     type="text"
                     fullWidth
                     value={titleText}
-                    onClick={removeAttribute}
                     onKeyDown={handleKeyDown}
                     onChange={changeTitleText}
+                    style={{readOnly: true}}
                   />
-                  <MoreHorizIcon />
+                    <MoreHorizIcon />
                 </Grid>
                 {cards.map((card, indexCard) =>
                   <Grid item xs={12} key={card.id} cards={cards} >
@@ -86,8 +80,8 @@ const TrelloList = ({ title, cards, _id, index, position}) => {
                   </Grid>
                 )}
                 {provided.placeholder}
-                <TrelloActionButton 
-                _id={_id}
+                <TrelloActionButton
+                  _id={_id}
                 />
               </div>
             )}
@@ -95,8 +89,6 @@ const TrelloList = ({ title, cards, _id, index, position}) => {
         </ListContainer>
       )}
     </Draggable>
-
-
   )
 }
 
