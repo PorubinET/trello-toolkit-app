@@ -96,6 +96,7 @@ function TrelloActionButton(props) {
 
     return (
         formOpen ? 
+        
             <div className="btn"
                 onClick={openForm}
                 style = {

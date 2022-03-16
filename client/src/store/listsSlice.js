@@ -57,7 +57,7 @@ export const listsSlice = createSlice({
                     },
                     {
                         usersCard: [
-                            0                
+                                         
                         ],
                         id: 8743098,
                         text: "created static 3",
@@ -243,6 +243,7 @@ export const listsSlice = createSlice({
         deleteUser(state, action) {
             console.log(action.payload, "<<<")
             // console.log(state.lists[action.payload.indexList].cards.usersCard.splice(action.payload.id, 1))
+            // console.log(state.lists[action.payload.indexList].cards[action.payload.indexList].)
             console.log(state.lists[action.payload.indexList].cards[action.payload.indexList].usersCard.splice(action.payload.id, 1))
         }
     },
